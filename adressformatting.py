@@ -18,9 +18,18 @@ def concatAdressBoxes(row):
   else: 
     return str(row['ENDEREÇO'])
   
-formatedS = formatSheet(adress)
-formatedS['CONCATENADO'] = formatedS.apply(concatAdressBoxes, axis=1)
+def concatCodes(group):
+  return ', '.join(group['ENDEREÇO'])
 
-print(formatedS)
+dff = formatSheet(adress)
+dff['CONCATENADO'] = dff.apply(concatAdressBoxes, axis=1)
 
-formatedS.to_excel("formated.xlsx", index=(False))
+print(dff)
+
+dff.to_excel("formatConcat.xlsx", index=(False))
+
+dfconcat = dff.groupby('CODIGO').apply(concatCodes).reset_index(name='endereços_concatenados')
+
+print(dfconcat)
+
+dfconcat.to_excel("concatenadoendereçocodigocaixa.xlsx", index=False)
