@@ -9,7 +9,6 @@ adress = pd.read_excel(path)
 
 def formatSheet(dataframe):
   dataframe['CAIXA'] = '(' + dataframe['CAIXA'] + ')'
-
   return dataframe
 
 def concatAdressBoxes(row):
@@ -19,17 +18,10 @@ def concatAdressBoxes(row):
     return str(row['ENDEREÇO'])
   
 def concatCodes(group):
-  return ', '.join(group['ENDEREÇO'])
+  return ' / '.join(group['ENDEREÇO'])
 
 dff = formatSheet(adress)
-dff['CONCATENADO'] = dff.apply(concatAdressBoxes, axis=1)
-
-print(dff)
-
-dff.to_excel("formatConcat.xlsx", index=(False))
-
+dff['ENDEREÇO'] = dff.apply(concatAdressBoxes, axis=1)
 dfconcat = dff.groupby('CODIGO').apply(concatCodes).reset_index(name='endereços_concatenados')
 
-print(dfconcat)
-
-dfconcat.to_excel("concatenadoendereçocodigocaixa.xlsx", index=False)
+dfconcat.to_excel("EnderecoFormatadoCG.xlsx", index=False)
