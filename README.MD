@@ -6,11 +6,11 @@ Um projeto para formatar a planilha do excel em formato compativel, para importa
 
 1. Antes da formatação:
 
-![imagemplanilha](image.png)
+<img src="./assets/bformat.png">
 
 2. Após a formatação:
 
-![aposformatacao](image-1.png)
+<img src="./assets/aformat.png">
 
 # 📚 Tecnologias Utilizadas!
 
