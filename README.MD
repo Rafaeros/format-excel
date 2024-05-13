@@ -10,10 +10,9 @@ Um projeto para formatar a planilha do excel em formato compativel, para importa
 
 2. Após a formatação:
 
-<img src="./assets/aformat.png">
+<img src="./assets/afterformat.png">
 
 # 📚 Tecnologias Utilizadas!
-
 
 ![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
