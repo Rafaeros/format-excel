@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy
 
-path = './address.xlsx'
-
 class formatAddress():
   def __init__(self, path):
     self.path = path
@@ -29,10 +27,8 @@ class formatAddress():
     concatdf.to_excel("EndereçoFormatadoCG.xlsx", index=False)
 
 
-formatFile = formatAddress(path)
-formatFile.formatedFile()
-
-
+""" formatFile = formatAddress(path)
+formatFile.formatedFile() """
 """ dff = formatSheet(adress)
 dff['ENDEREÇO'] = dff.apply(concatAdressBoxes, axis=1)
 dfconcat = dff.groupby('CODIGO').apply(concatCodes).reset_index(name='endereços_concatenados')
