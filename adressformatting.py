@@ -1,36 +1,51 @@
+"""
+  Adress Formatting format the excel file concatenate the address of the codes.
+"""
+
 import pandas as pd
-import numpy
 
-class formatAddress():
-  def __init__(self, path):
-    self.path = path
-    self.df = pd.read_excel(self.path)
-    self.concatdf = pd.DataFrame()
-    
-  def formatSheet(self, dataframe):
-    dataframe['CAIXA'] = '(' + dataframe['CAIXA'] + ')'
-    return dataframe
+class FormatAddress():
+    """
+    Formats the excel file
+    """
 
-  def concatAdressBoxes(self, row):
-    if pd.notnull(row['CAIXA']) and row['CAIXA']!= '':
-      return str(row['ENDEREÇO']) + ' ' + str(row['CAIXA'])
-    else: 
-      return str(row['ENDEREÇO'])
-  
-  def concatCodes(self, group):
-    return ' / '.join(group['ENDEREÇO'])
-  
-  def formatedFile(self):
-    self.df = self.formatSheet(self.df)
-    self.df['ENDEREÇO'] = self.df.apply(self.concatAdressBoxes, axis=1)
-    concatdf = self.df.groupby('CODIGO').apply(self.concatCodes).reset_index(name="ENDEREÇOS_CONCATENADOS")
-    concatdf.to_excel("EndereçoFormatadoCG.xlsx", index=False)
+    def __init__(self, path: str) -> None:
+        """
+        Initializes the class
+        """
+        self.path: str = path
+        self.df: pd.DataFrame = pd.read_excel(self.path)
+        self.concatdf: pd.DataFrame = pd.DataFrame()
 
+    def format_sheet(self, dataframe: pd.DataFrame) -> pd.DataFrame:
+        """
+        Formats the sheet
+        """
+        dataframe['CAIXA'] = '(' + dataframe['CAIXA'] + ')'
+        return dataframe
 
-""" formatFile = formatAddress(path)
-formatFile.formatedFile() """
-""" dff = formatSheet(adress)
-dff['ENDEREÇO'] = dff.apply(concatAdressBoxes, axis=1)
-dfconcat = dff.groupby('CODIGO').apply(concatCodes).reset_index(name='endereços_concatenados')
+    def concat_adress_boxes(self, row) -> str:
+        """
+        Concatenates the address
+        """
+        if pd.notnull(row['CAIXA']) and row['CAIXA'] != '':
+            return str(row['ENDEREÇO']) + ' ' + str(row['CAIXA'])
+        else:
+            return str(row['ENDEREÇO'])
 
-dfconcat.to_excel("EnderecoFormatadoCG.xlsx", index=False) """
+    def concat_codes(self, group) -> str:
+        """
+        Concatenates the unique codes
+        """
+        unique_addresses = set(group['ENDEREÇO'])  # Remove duplicados
+        return ' / '.join(unique_addresses)
+
+    def formated_file(self) -> None:
+        """
+        Formats the excel file
+        """
+        self.df = self.format_sheet(self.df)
+        self.df['ENDEREÇO'] = self.df.apply(self.concat_adress_boxes, axis=1)
+        concatdf = self.df.groupby('CODIGO').apply(
+            self.concat_codes).reset_index(name="ENDEREÇOS_CONCATENADOS")
+        concatdf.to_excel("EndereçoFormatadoCG.xlsx", index=False)

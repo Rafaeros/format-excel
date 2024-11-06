@@ -1,11 +1,9 @@
-from interface import interface
-import customtkinter as ctk
-import CTkMessagebox
+"""
+Main function for the program
+"""
 
-def main():
-  root = ctk.CTk()
-  app = interface(root)
-  root.mainloop()
+from interface import Interface
 
 if __name__ == "__main__":
-  main()
+    interface = Interface()
+    interface.mainloop()
